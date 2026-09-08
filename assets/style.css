@@ -280,8 +280,50 @@ main {
 .comment-body {
   margin-top: 0.3rem;
   font-size: 0.9rem;
-  white-space: pre-wrap;
   word-wrap: break-word;
+}
+
+.comment-body p {
+  margin: 0.4rem 0;
+}
+
+.comment-body p:first-child {
+  margin-top: 0;
+}
+
+.comment-body p:last-child {
+  margin-bottom: 0;
+}
+
+.comment-body a {
+  color: var(--text);
+}
+
+.comment-body code {
+  background: var(--muted-bg);
+  border-radius: 3px;
+  padding: 0.1rem 0.3rem;
+  font-size: 0.85em;
+}
+
+.comment-body pre {
+  background: var(--muted-bg);
+  border-radius: 4px;
+  padding: 0.5rem;
+  overflow-x: auto;
+}
+
+.comment-body ul,
+.comment-body ol {
+  margin: 0.4rem 0;
+  padding-left: 1.3rem;
+}
+
+.comment-body blockquote {
+  margin: 0.4rem 0;
+  padding-left: 0.6rem;
+  border-left: 2px solid var(--border);
+  color: var(--text-dim);
 }
 
 .comment-empty {

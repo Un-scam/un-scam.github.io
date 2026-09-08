@@ -35,21 +35,39 @@ function escapeHtml(str) {
     .replaceAll('"', "&quot;");
 }
 
+// Adds target="_blank" to every link, merging "noopener" into any rel
+// GitHub already set (e.g. rel="nofollow") instead of overwriting it, so
+// we don't lose that and don't end up with two conflicting rel attributes.
+function openLinksInNewTab(html) {
+  return html.replace(/<a\s+([^>]*?)>/g, (match, attrs) => {
+    let out = /\btarget=/.test(attrs) ? attrs : `${attrs} target="_blank"`;
+    out = /\brel="/.test(out)
+      ? out.replace(/rel="([^"]*)"/, (m, rel) => (rel.includes("noopener") ? m : `rel="${rel} noopener"`))
+      : `${out} rel="noopener"`;
+    return `<a ${out}>`;
+  });
+}
+
+// GitHub renders the comment's markdown server-side (see scrape_stats.js,
+// "full+json" media type) and sanitizes the result, so bodyHtml is safe to
+// drop into the page as-is. Fall back to escaped plain text for old
+// stats.json entries scraped before bodyHtml existed.
 function renderComments(comments) {
   if (!comments || comments.length === 0) {
     return '<p class="comment-empty">No comments yet.</p>';
   }
   return comments
-    .map(
-      (c) => `
+    .map((c) => {
+      const body = c.bodyHtml ? openLinksInNewTab(c.bodyHtml) : `<p>${escapeHtml(c.body)}</p>`;
+      return `
       <div class="comment">
         <div class="comment-header">
           <a href="${escapeHtml(c.url || "#")}" target="_blank" rel="noopener">@${escapeHtml(c.author)}</a>
           <span class="comment-date">${escapeHtml((c.createdAt || "").slice(0, 10))}</span>
         </div>
-        <div class="comment-body">${escapeHtml(c.body)}</div>
-      </div>`
-    )
+        <div class="comment-body">${body}</div>
+      </div>`;
+    })
     .join("");
 }
 

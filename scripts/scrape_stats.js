@@ -50,10 +50,17 @@ async function main() {
     const thumbsDown = (issue.reactions && issue.reactions["-1"]) || 0;
     const totalVotes = thumbsUp + thumbsDown;
 
-    const rawComments = await paginate(gh, `/repos/${REPO}/issues/${number}/comments`);
+    // "full+json" gets GitHub's own rendered markdown back as body_html
+    // (mentions, links, bold, lists, all handled by GitHub's renderer
+    // instead of a hand-rolled parser here). GitHub sanitizes it, safe to
+    // embed directly on the page.
+    const rawComments = await paginate(gh, `/repos/${REPO}/issues/${number}/comments`, {
+      headers: { Accept: "application/vnd.github.full+json" },
+    });
     const comments = rawComments.map((c) => ({
       author: (c.user && c.user.login) || "unknown",
       body: c.body || "",
+      bodyHtml: c.body_html || "",
       createdAt: c.created_at,
       url: c.html_url,
     }));

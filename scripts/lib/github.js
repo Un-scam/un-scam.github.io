@@ -24,12 +24,12 @@ function ghClient(token) {
 // Follows GitHub's page-based pagination (per_page=100) until a short page
 // comes back. Used for endpoints that can return more than one page, like
 // issue comments.
-async function paginate(gh, pathname) {
+async function paginate(gh, pathname, options) {
   const out = [];
   let page = 1;
   while (true) {
     const sep = pathname.includes("?") ? "&" : "?";
-    const batch = await gh(`${pathname}${sep}per_page=100&page=${page}`);
+    const batch = await gh(`${pathname}${sep}per_page=100&page=${page}`, options);
     if (!batch || batch.length === 0) break;
     out.push(...batch);
     if (batch.length < 100) break;
