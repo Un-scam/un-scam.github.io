@@ -63,5 +63,18 @@
     "issue_url": "https://github.com/Un-scam/un-scam.github.io/issues/6",
     "submittedBy": "vijaysamant4368",
     "dateAdded": "2026-09-03"
+  },
+  {
+    "id": "medinex-workforce",
+    "name": "MediNex Workforce",
+    "status": "blacklist",
+    "category": [
+      "internship",
+      "training-fee"
+    ],
+    "linkedinURL": "https://www.linkedin.com/company/medinex-workforce/",
+    "issue_url": null,
+    "submittedBy": "vijaysamant4368",
+    "dateAdded": "2026-09-08"
   }
 ]
