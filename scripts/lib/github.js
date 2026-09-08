@@ -7,7 +7,11 @@ function ghClient(token) {
     const res = await fetch(`${API}${pathname}`, {
       ...options,
       headers: {
-        Authorization: `Bearer ${token}`,
+        // Omit Authorization entirely when there's no token instead of
+        // sending "Bearer " (empty), which GitHub 401s on ("Bad
+        // credentials") rather than falling back to unauthenticated
+        // access, even though public read-only endpoints allow that.
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
         Accept: "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
         ...(options.headers || {}),
