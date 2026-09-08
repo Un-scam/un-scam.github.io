@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 "use strict";
 
-// Scrapes 👍/👎 reaction counts and comment counts from each company's
-// canonical issue, writes data/stats.json. Only ever touches stats.json,
-// never data/companies.json, so this workflow's own commit can't match
-// the companies.json path filter that triggers sync-new-companies.yml or
-// this same workflow's push trigger. No loop-safety guard needed.
+// Scrapes 👍/👎 reaction counts and comments from each company's canonical
+// issue, writes data/stats.json. Only ever touches stats.json, never
+// data/companies.json, so this workflow's own commit can't match the
+// companies.json path filter that triggers sync-new-companies.yml or this
+// same workflow's push trigger. No loop-safety guard needed.
 //
 // Env: GITHUB_TOKEN, GITHUB_REPOSITORY
 
 const fs = require("fs");
 const path = require("path");
-const { ghClient } = require("./lib/github");
+const { ghClient, paginate } = require("./lib/github");
 
 const DATA_PATH = path.join(__dirname, "..", "data", "companies.json");
 const STATS_PATH = path.join(__dirname, "..", "data", "stats.json");
@@ -49,24 +49,36 @@ async function main() {
     const thumbsUp = (issue.reactions && issue.reactions["+1"]) || 0;
     const thumbsDown = (issue.reactions && issue.reactions["-1"]) || 0;
     const totalVotes = thumbsUp + thumbsDown;
-    const commentCount = issue.comments || 0;
 
-    // Only bump updatedAt when the numbers actually moved. Otherwise the
-    // scheduled cron (every 30 min, regardless of activity) would diff and
-    // commit every single run just from the timestamp, spamming main and
-    // colliding with other bot pushes.
-    const prev = prevStats[company.id];
-    const unchanged =
-      prev && prev.thumbsUp === thumbsUp && prev.thumbsDown === thumbsDown && prev.commentCount === commentCount;
+    const rawComments = await paginate(gh, `/repos/${REPO}/issues/${number}/comments`);
+    const comments = rawComments.map((c) => ({
+      author: (c.user && c.user.login) || "unknown",
+      body: c.body || "",
+      createdAt: c.created_at,
+      url: c.html_url,
+    }));
 
-    stats[company.id] = {
+    const entry = {
       issueNumber: number,
       thumbsUp,
       thumbsDown,
       totalVotes,
       pctPositive: totalVotes ? Math.round((thumbsUp / totalVotes) * 100) : null,
       pctNegative: totalVotes ? Math.round((thumbsDown / totalVotes) * 100) : null,
-      commentCount,
+      commentCount: comments.length,
+      comments,
+    };
+
+    // Only bump updatedAt when something in the entry actually moved.
+    // Otherwise the scheduled cron (every 30 min, regardless of activity)
+    // would diff and commit every single run just from the timestamp,
+    // spamming main and colliding with other bot pushes.
+    const prev = prevStats[company.id];
+    const prevWithoutTimestamp = prev ? { ...prev, updatedAt: undefined } : null;
+    const unchanged = prev && JSON.stringify(prevWithoutTimestamp) === JSON.stringify(entry);
+
+    stats[company.id] = {
+      ...entry,
       updatedAt: unchanged ? prev.updatedAt : new Date().toISOString(),
     };
   }

@@ -236,6 +236,59 @@ main {
   text-decoration: underline;
 }
 
+.comments-section {
+  margin-top: 1.5rem;
+}
+
+.comments-section h3 {
+  font-size: 0.95rem;
+  margin: 0 0 0.5rem;
+}
+
+.comments {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.comment {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.6rem 0.75rem;
+  background: var(--surface);
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.comment-header a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.comment-header a:hover {
+  text-decoration: underline;
+}
+
+.comment-date {
+  color: var(--text-dim);
+}
+
+.comment-body {
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.comment-empty {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
 footer {
   text-align: center;
   padding: 2rem 1.25rem 3rem;

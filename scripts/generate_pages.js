@@ -35,6 +35,24 @@ function escapeHtml(str) {
     .replaceAll('"', "&quot;");
 }
 
+function renderComments(comments) {
+  if (!comments || comments.length === 0) {
+    return '<p class="comment-empty">No comments yet.</p>';
+  }
+  return comments
+    .map(
+      (c) => `
+      <div class="comment">
+        <div class="comment-header">
+          <a href="${escapeHtml(c.url || "#")}" target="_blank" rel="noopener">@${escapeHtml(c.author)}</a>
+          <span class="comment-date">${escapeHtml((c.createdAt || "").slice(0, 10))}</span>
+        </div>
+        <div class="comment-body">${escapeHtml(c.body)}</div>
+      </div>`
+    )
+    .join("");
+}
+
 function main() {
   const companies = readJsonSafe(DATA_PATH, []);
   const stats = readJsonSafe(STATS_PATH, {});
@@ -64,7 +82,8 @@ function main() {
       .replaceAll("{{pctNegative}}", s.pctNegative == null ? "N/A" : `${s.pctNegative}%`)
       .replaceAll("{{pctPositiveRaw}}", pctPositiveRaw)
       .replaceAll("{{pctNegativeRaw}}", pctNegativeRaw)
-      .replaceAll("{{commentCount}}", s.commentCount ?? 0);
+      .replaceAll("{{commentCount}}", s.commentCount ?? 0)
+      .replaceAll("{{commentsHtml}}", renderComments(s.comments));
 
     fs.writeFileSync(path.join(OUT_DIR, `${c.id}.html`), html);
   }
