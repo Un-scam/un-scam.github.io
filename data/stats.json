@@ -61,5 +61,24 @@
     "commentCount": 0,
     "comments": [],
     "updatedAt": "2026-09-08T07:55:03.186Z"
+  },
+  "medinex-workforce": {
+    "issueNumber": 7,
+    "thumbsUp": 0,
+    "thumbsDown": 1,
+    "totalVotes": 1,
+    "pctPositive": 0,
+    "pctNegative": 100,
+    "commentCount": 1,
+    "comments": [
+      {
+        "author": "VijaySamant4368",
+        "body": "**[Rafia Farhat](https://www.linkedin.com/in/rafia-farhat/)** in [her LinkedIn post](https://www.linkedin.com/feed/update/urn:li:activity:7390673163854155776/) shared the alert against MediNex Workforce.\n\n**TL;DR**: \n**MediNex Workforce** posts job roles which are completely scam.",
+        "bodyHtml": "<p dir=\"auto\"><strong><a href=\"https://www.linkedin.com/in/rafia-farhat/\" rel=\"nofollow\">Rafia Farhat</a></strong> in <a href=\"https://www.linkedin.com/feed/update/urn:li:activity:7390673163854155776/\" rel=\"nofollow\">her LinkedIn post</a> shared the alert against MediNex Workforce.</p>\n<p dir=\"auto\"><strong>TL;DR</strong>:<br>\n<strong>MediNex Workforce</strong> posts job roles which are completely scam.</p>",
+        "createdAt": "2026-09-08T08:14:29Z",
+        "url": "https://github.com/Un-scam/un-scam.github.io/issues/7#issuecomment-5581620736"
+      }
+    ],
+    "updatedAt": "2026-09-08T08:14:45.835Z"
   }
 }
