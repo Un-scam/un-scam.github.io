@@ -1,1 +1,64 @@
-{}
+{
+  "unified-mentor": {
+    "issueNumber": 2,
+    "thumbsUp": 0,
+    "thumbsDown": 1,
+    "totalVotes": 1,
+    "pctPositive": 0,
+    "pctNegative": 100,
+    "commentCount": 1,
+    "comments": [
+      {
+        "author": "VijaySamant4368",
+        "body": "**Sayan Dutta** in [his LinkedIn post](https://www.linkedin.com/feed/update/urn:li:activity:7390673163854155776/) has clearly explained the practices done by Unified Mentor.\n\n**TL;DR**: \nThe Unified Mentor internship scheme operates as a training funnel targeting job seekers with promised remote stipends before demanding upfront confirmation fees.",
+        "createdAt": "2026-09-08T07:54:44Z",
+        "url": "https://github.com/Un-scam/un-scam.github.io/issues/2#issuecomment-5581371657"
+      }
+    ],
+    "updatedAt": "2026-09-08T07:55:01.395Z"
+  },
+  "zenithbyte": {
+    "issueNumber": 3,
+    "thumbsUp": 0,
+    "thumbsDown": 0,
+    "totalVotes": 0,
+    "pctPositive": null,
+    "pctNegative": null,
+    "commentCount": 0,
+    "comments": [],
+    "updatedAt": "2026-09-08T07:55:01.781Z"
+  },
+  "devryxa": {
+    "issueNumber": 4,
+    "thumbsUp": 0,
+    "thumbsDown": 0,
+    "totalVotes": 0,
+    "pctPositive": null,
+    "pctNegative": null,
+    "commentCount": 0,
+    "comments": [],
+    "updatedAt": "2026-09-08T07:55:02.365Z"
+  },
+  "vortenza-systems": {
+    "issueNumber": 5,
+    "thumbsUp": 0,
+    "thumbsDown": 0,
+    "totalVotes": 0,
+    "pctPositive": null,
+    "pctNegative": null,
+    "commentCount": 0,
+    "comments": [],
+    "updatedAt": "2026-09-08T07:55:02.790Z"
+  },
+  "dexters-tech": {
+    "issueNumber": 6,
+    "thumbsUp": 0,
+    "thumbsDown": 0,
+    "totalVotes": 0,
+    "pctPositive": null,
+    "pctNegative": null,
+    "commentCount": 0,
+    "comments": [],
+    "updatedAt": "2026-09-08T07:55:03.186Z"
+  }
+}
